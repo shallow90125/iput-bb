@@ -1,7 +1,5 @@
-import { getDb } from "@/actions/getDb";
-
 export default async function Home() {
-  const db = await getDb();
-  db.collection("sensor");
-  return <>home</>;
+  return (
+    <div className=" flex flex-grow items-center justify-center">main</div>
+  );
 }

@@ -15,12 +15,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className + " flex h-screen w-screen flex-col"}>
-        <header>header</header>
-        <main className=" grid flex-grow grid-cols-12 gap-1 p-1">
-          {children}
-        </main>
-        <footer>footer</footer>
+      <body
+        className={
+          inter.className + " flex h-screen w-screen flex-col divide-y"
+        }
+      >
+        <header className=" flex h-16 flex-none items-center justify-center">
+          header
+        </header>
+        <main className=" flex flex-grow">{children}</main>
+        <footer className=" flex h-16 flex-none items-center justify-center">
+          footer
+        </footer>
       </body>
     </html>
   );
