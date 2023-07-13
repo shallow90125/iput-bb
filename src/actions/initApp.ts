@@ -1,10 +1,9 @@
 "use server";
 
 import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
 
-export async function getDb() {
-  if (getApps().length == 0) {
+export function initApp() {
+  if (getApps().length === 0) {
     initializeApp({
       credential: cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
@@ -13,6 +12,4 @@ export async function getDb() {
       }),
     });
   }
-
-  return getFirestore();
 }

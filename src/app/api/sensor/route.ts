@@ -1,11 +1,12 @@
-import { getDb } from "@/actions/getDb";
-import { FieldValue } from "firebase-admin/firestore";
+import { initApp } from "@/actions/initApp";
+import { FieldValue, getFirestore } from "firebase-admin/firestore";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const newData = await request.json();
-  const db = await getDb();
+  initApp();
+  const db = getFirestore();
 
+  const newData = await request.json();
   const snapshot = await db
     .collection("sensor")
     .where("macAddress", "==", newData.macAddress)
@@ -21,7 +22,6 @@ export async function POST(request: NextRequest) {
   }
 
   const ref = snapshot.docs[0].ref;
-
   await ref.update({
     macAddress: newData.macAddress,
     isOpen: newData.isOpen,
