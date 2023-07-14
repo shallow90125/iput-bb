@@ -15,7 +15,9 @@ export default function AuthProvider({
 
   const setCurrentUser = useSetRecoilState(userAtom);
 
-  onAuthStateChanged(auth, (user) => setCurrentUser(user));
+  const unsubscribe = onAuthStateChanged(auth, (user) => setCurrentUser(user));
+
+  unsubscribe();
 
   return <>{children}</>;
 }
