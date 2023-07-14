@@ -1,4 +1,4 @@
-import Provider from "@/components/Provider";
+import { Link } from "@/components/chakra-ui/next-js";
 import {
   Box,
   Container,
@@ -7,6 +7,7 @@ import {
   Grid,
   GridItem,
 } from "@/components/chakra-ui/react";
+import Provider from "@/components/client/Provider";
 import { Noto_Sans_JP } from "next/font/google";
 
 const font = Noto_Sans_JP({ subsets: ["latin"] });
@@ -39,7 +40,9 @@ export default function RootLayout({
                 placeItems="center"
                 fontWeight="bold"
               >
-                <GridItem>Header</GridItem>
+                <GridItem>
+                  <Link href="/">Header</Link>
+                </GridItem>
               </Grid>
               <Divider />
               <Container as="main" flexGrow={1} display="grid">
@@ -53,7 +56,9 @@ export default function RootLayout({
                 placeItems="center"
                 fontWeight="bold"
               >
-                <GridItem>Footer</GridItem>
+                <GridItem>
+                  <Link href="/login">Footer</Link>
+                </GridItem>
               </Grid>
             </Flex>
           </Provider>
