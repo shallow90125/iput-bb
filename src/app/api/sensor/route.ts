@@ -1,5 +1,14 @@
-import { initApp } from "@/actions/initApp";
-import { FieldValue, getFirestore } from "firebase-admin/firestore";
+import { initApp } from "@/utils/initApp";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  serverTimestamp,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -7,25 +16,26 @@ export async function POST(request: NextRequest) {
   const db = getFirestore();
 
   const newData = await request.json();
-  const snapshot = await db
-    .collection("sensor")
-    .where("macAddress", "==", newData.macAddress)
-    .get();
+
+  const colRef = collection(db, "sensor");
+  const q = query(colRef, where("macAddress", "==", true));
+  const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
-    await db.collection("sensor").add({
+    await addDoc(colRef, {
       macAddress: newData.macAddress,
       isOpen: newData.isOpen,
-      updatedAt: FieldValue.serverTimestamp(),
+      updatedAt: serverTimestamp(),
     });
+
     return new Response(null, { status: 200 });
   }
 
-  const ref = snapshot.docs[0].ref;
-  await ref.update({
+  const docRef = snapshot.docs[0].ref;
+  await updateDoc(docRef, {
     macAddress: newData.macAddress,
     isOpen: newData.isOpen,
-    updatedAt: FieldValue.serverTimestamp(),
+    updatedAt: serverTimestamp(),
   });
 
   return new Response(null, { status: 200 });
