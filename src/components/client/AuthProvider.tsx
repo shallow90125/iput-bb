@@ -17,7 +17,7 @@ export default function AuthProvider({
 
   const unsubscribe = onAuthStateChanged(auth, (user) => setCurrentUser(user));
 
-  unsubscribe();
+  // unsubscribe();
 
   return <>{children}</>;
 }
