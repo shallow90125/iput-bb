@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
   const newData = await request.json();
 
   const colRef = collection(db, "sensor");
-  const q = query(colRef, where("macAddress", "==", true));
+  const q = query(colRef, where("macAddress", "==", newData.macAddress));
   const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
