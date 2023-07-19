@@ -13,11 +13,12 @@ export default function Header() {
       gap={4}
       p={4}
     >
-      <Box flexGrow={1}>
+      <Box>
         <Link href="/">
-          <Text fontSize="2xl">This Is Title</Text>
+          <Text fontSize="2xl">WINSOR</Text>
         </Link>
       </Box>
+      <Box flexGrow={1}></Box>
       <Box>
         <LoginField />
       </Box>
