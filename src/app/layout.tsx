@@ -48,7 +48,7 @@ export default function RootLayout({
                 fontWeight="bold"
               >
                 <GridItem>
-                  <Link href="/login">&copy; 2023 iput-bb</Link>
+                  <Link href="/">&copy; 2023 iput-bb</Link>
                 </GridItem>
               </Grid>
             </Flex>
