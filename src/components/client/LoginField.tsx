@@ -64,7 +64,7 @@ export default function LoginField() {
       </MenuList>
     </Menu>
   ) : (
-    <Button as={Link} href="/login">
+    <Button as={Link} href="/login" colorScheme="blue">
       Login
     </Button>
   );

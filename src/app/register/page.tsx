@@ -200,7 +200,9 @@ export default function Register() {
             </FormErrorMessage>
           )}
         </FormControl>
-        <Button type="submit">Register</Button>
+        <Button type="submit" colorScheme="blue">
+          Register
+        </Button>
       </SimpleGrid>
     </AuthRedirector>
   );

@@ -204,9 +204,11 @@ export default function Dashboard() {
                   </FormControl>
                 </ModalBody>
                 <ModalFooter gap={4}>
-                  <Button onClick={onClose}>キャンセル</Button>
+                  <Button onClick={onClose} colorScheme="blackAlpha">
+                    キャンセル
+                  </Button>
                   <Button
-                    color="red"
+                    colorScheme="red"
                     onClick={async () => {
                       if (!editSensor) return;
                       const q = query(
@@ -247,7 +249,9 @@ export default function Dashboard() {
                   >
                     削除
                   </Button>
-                  <Button type="submit">追加</Button>
+                  <Button type="submit" colorScheme="blue">
+                    追加
+                  </Button>
                 </ModalFooter>
               </ModalContent>
             </Modal>

@@ -52,7 +52,9 @@ export default function ModalSensorAdd() {
 
   return (
     <>
-      <Button onClick={onOpen}>センサーを追加</Button>
+      <Button onClick={onOpen} colorScheme="blue">
+        センサーを追加
+      </Button>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent
@@ -150,8 +152,12 @@ export default function ModalSensorAdd() {
             </FormControl>
           </ModalBody>
           <ModalFooter gap={4}>
-            <Button onClick={onClose}>キャンセル</Button>
-            <Button type="submit">追加</Button>
+            <Button onClick={onClose} colorScheme="blue">
+              キャンセル
+            </Button>
+            <Button type="submit" colorScheme="blue">
+              追加
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

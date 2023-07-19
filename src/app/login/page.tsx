@@ -115,7 +115,9 @@ export default function Login() {
             <FormErrorMessage>{errors.password.message}</FormErrorMessage>
           )}
         </FormControl>
-        <Button type="submit">Login</Button>
+        <Button type="submit" colorScheme="blue">
+          Login
+        </Button>
         <Link href="/register">
           <Text>またはアカウントを登録する</Text>
         </Link>

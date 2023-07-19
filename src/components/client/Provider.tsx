@@ -10,7 +10,7 @@ export default function Provider({ children }: { children: React.ReactNode }) {
     styles: {
       global: {
         body: {
-          backgroundColor: "green.50",
+          backgroundColor: "blue.50",
           color: "black",
         },
       },
