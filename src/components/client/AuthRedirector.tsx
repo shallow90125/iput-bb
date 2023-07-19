@@ -18,8 +18,7 @@ export default function AuthRedirector(props: Props) {
   useEffect(() => {
     console.log("AuthRedirector: useEffect");
     if (!isInit) return;
-    if ((props.isExists && user) || (!props.isExists && !user))
-      router.replace("/");
-  });
+    if (props.isExists == !!user) router.replace("/");
+  }, [isInit]);
   return <>{props.children}</>;
 }

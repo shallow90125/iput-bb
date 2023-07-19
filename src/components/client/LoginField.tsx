@@ -43,7 +43,7 @@ export default function LoginField() {
           </SimpleGrid>
         </MenuItem>
         <MenuDivider />
-        <MenuItem display="grid" placeContent="streach" placeItems="stretch">
+        <MenuItem display="grid" placeContent="stretch" placeItems="stretch">
           <Link href="/dashboard">Dashboard</Link>
         </MenuItem>
         <MenuDivider />
