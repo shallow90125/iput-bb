@@ -14,8 +14,8 @@ import Link from "next/link";
 const font = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "iput-bb",
-  description: "iput-bb",
+  title: "WINSOR - 窓開閉確認アプリ",
+  description: "窓開閉確認アプリ",
 };
 
 export default function RootLayout({
