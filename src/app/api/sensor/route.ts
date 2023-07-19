@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   initApp();
   const db = getFirestore();
 
-  const newData = await request.json();
+  const newData: { macAddress: string; isOpen: boolean } = await request.json();
 
   const colRef = collection(db, "sensor");
   const q = query(colRef, where("macAddress", "==", newData.macAddress));
