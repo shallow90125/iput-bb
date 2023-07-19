@@ -2,7 +2,7 @@
 
 import { initAtom, userAtom } from "@/utils/atom";
 import { initApp } from "@/utils/initApp";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Unsubscribe, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useTransition } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 
@@ -16,15 +16,19 @@ export default function AuthProvider({
   const [isInit, setIsInit] = useRecoilState(initAtom);
 
   useEffect(() => {
+    let unsubscribe: Unsubscribe;
     startTransition(() => {
       initApp();
       const auth = getAuth();
-      onAuthStateChanged(auth, (user) => {
+      unsubscribe = onAuthStateChanged(auth, (user) => {
         console.log(`AuthProvider: onAuthStateChanged: ${user?.email}`);
         setCurrentUser(user);
         if (!isInit) setIsInit(true);
       });
     });
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
   return <>{children}</>;
