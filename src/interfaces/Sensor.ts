@@ -1,6 +1,6 @@
 interface Sensor {
   macAddress: string;
-  isOpen: string;
+  isOpen: boolean;
   name: string;
   uid: string;
 }
