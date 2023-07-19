@@ -85,7 +85,9 @@ export default function Dashboard() {
       });
     });
     return () => {
-      unsubscribe();
+      try {
+        unsubscribe();
+      } catch (error) {}
     };
   }, [isInit]);
 
