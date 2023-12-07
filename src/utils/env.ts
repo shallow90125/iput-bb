@@ -3,6 +3,7 @@ import { z } from "zod";
 const varSchema = z.string().min(1);
 
 const envSchema = z.object({
+  NEXTAUTH_SECRET: varSchema,
   NEXT_PUBLIC_API_KEY: varSchema,
   NEXT_PUBLIC_AUTH_DOMAIN: varSchema,
   NEXT_PUBLIC_PROJECT_ID: varSchema,
