@@ -29,7 +29,7 @@ import SpinnerProvider from "@/components/client/SpinnerProvider";
 import Lock from "@/components/server/Lock";
 import Unlock from "@/components/server/Unlock";
 import { initAtom, sensorsAtom, userAtom } from "@/utils/atom";
-import { initApp } from "@/utils/initApp";
+import { initApp } from "@/utils/init-app";
 import { sensorConverter } from "@/utils/sensorConverter";
 import {
   Unsubscribe,

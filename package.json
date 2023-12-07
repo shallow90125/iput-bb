@@ -26,7 +26,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
     "recoil": "^0.7.7",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "eslint-config-prettier": "^9.1.0",

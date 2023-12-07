@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@/components/chakra-ui/react";
 import AuthRedirector from "@/components/client/AuthRedirector";
-import { initApp } from "@/utils/initApp";
+import { initApp } from "@/utils/init-app";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";

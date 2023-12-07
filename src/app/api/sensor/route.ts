@@ -1,4 +1,4 @@
-import { initApp } from "@/utils/initApp";
+import { initApp } from "@/utils/init-app";
 import {
   addDoc,
   collection,

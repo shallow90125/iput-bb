@@ -1,7 +1,7 @@
 "use client";
 
 import { initAtom, userAtom } from "@/utils/atom";
-import { initApp } from "@/utils/initApp";
+import { initApp } from "@/utils/init-app";
 import { Unsubscribe, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useTransition } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";

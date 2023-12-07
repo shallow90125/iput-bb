@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@/components/chakra-ui/react";
 import { userAtom } from "@/utils/atom";
-import { initApp } from "@/utils/initApp";
+import { initApp } from "@/utils/init-app";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";

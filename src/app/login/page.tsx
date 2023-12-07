@@ -14,7 +14,7 @@ import {
   useToast,
 } from "@/components/chakra-ui/react";
 import AuthRedirector from "@/components/client/AuthRedirector";
-import { initApp } from "@/utils/initApp";
+import { initApp } from "@/utils/init-app";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
