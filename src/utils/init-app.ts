@@ -1,16 +1,15 @@
 import { getApps, initializeApp } from "firebase/app";
-import { zEnv } from "./env";
 
 export function initApp() {
   if (getApps().length === 0) {
     const firebaseConfig = {
-      apiKey: zEnv.NEXT_PUBLIC_API_KEY,
-      authDomain: zEnv.NEXT_PUBLIC_AUTH_DOMAIN,
-      projectId: zEnv.NEXT_PUBLIC_PROJECT_ID,
-      storageBucket: zEnv.NEXT_PUBLIC_STORAGE_BUCKET,
-      messagingSenderId: zEnv.NEXT_PUBLIC_MESSAGING_SENDER_ID,
-      appId: zEnv.NEXT_PUBLIC_APP_ID,
-      measurementId: zEnv.NEXT_PUBLIC_MEASUREMENT_ID,
+      apiKey: process.env.NEXT_PUBLIC_API_KEY,
+      authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+      projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+      storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+      messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+      appId: process.env.NEXT_PUBLIC_APP_ID,
+      measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID,
     };
     initializeApp(firebaseConfig);
   }

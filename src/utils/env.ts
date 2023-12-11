@@ -13,9 +13,10 @@ const envSchema = z.object({
   NEXT_PUBLIC_MEASUREMENT_ID: varSchema,
 });
 
-export const zEnv = envSchema.parse(
-  Object.assign(
-    {},
-    ...Object.keys(process.env).map((v) => ({ [v]: process.env[v] }))
-  )
-);
+envSchema.parse(process.env);
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends z.infer<typeof envSchema> {}
+  }
+}
