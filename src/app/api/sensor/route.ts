@@ -1,9 +1,8 @@
-import { initApp } from "@/utils/init-app";
+import { db } from "@/utils/firebase";
 import {
   addDoc,
   collection,
   getDocs,
-  getFirestore,
   query,
   serverTimestamp,
   updateDoc,
@@ -12,9 +11,6 @@ import {
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
-  initApp();
-  const db = getFirestore();
-
   const newData: { macAddress: string; isOpen: boolean } = await request.json();
 
   const colRef = collection(db, "sensor");

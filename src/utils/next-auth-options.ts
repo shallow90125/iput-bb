@@ -1,11 +1,10 @@
 import {
   createUserWithEmailAndPassword,
-  getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { NextAuthOptions } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { initApp } from "./init-app";
+import { auth } from "./firebase";
 
 export const nextAuthOptions: NextAuthOptions = {
   providers: [
@@ -17,11 +16,9 @@ export const nextAuthOptions: NextAuthOptions = {
         password: { label: "password", type: "password" },
       },
       type: "credentials",
-      authorize: async (credentials, req) => {
+      authorize: async (credentials, _) => {
         try {
           if (!credentials) return null;
-          initApp();
-          const auth = getAuth();
           const userCredential = await signInWithEmailAndPassword(
             auth,
             credentials.email,
@@ -44,8 +41,6 @@ export const nextAuthOptions: NextAuthOptions = {
       authorize: async (credentials, req) => {
         try {
           if (!credentials) return null;
-          initApp();
-          const auth = getAuth();
           const userCredential = await createUserWithEmailAndPassword(
             auth,
             credentials.email,
