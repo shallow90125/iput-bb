@@ -1,7 +1,7 @@
 import Providers from "@/app/Providers";
+import Footer from "@/components/layout/Footer";
+import Header from "@/components/layout/Header";
 import { Inter, Noto_Sans_JP } from "next/font/google";
-import Footer from "./Footer";
-import Header from "./Header";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
