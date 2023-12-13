@@ -1,6 +1,6 @@
-import Providers from "@/app/Providers";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import Providers from "@/components/layout/Providers";
 import { Inter, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
