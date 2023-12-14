@@ -13,13 +13,13 @@ import {
 import { User2Icon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function Session() {
-  const { data: session } = useSession();
-  useEffect(() => {}, [session]);
+  const { data, status } = useSession();
 
-  return session ? (
+  return status == "loading" ? (
+    <></>
+  ) : status == "authenticated" ? (
     <>
       <Link href="/dashboard">
         <Button variant="secondary" size="sm">
@@ -39,7 +39,7 @@ export default function Session() {
           <DropdownMenuLabel>
             Signed in as
             <br />
-            {session.user.email}
+            {data.user.email}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => signOut()} className=" text-primary">

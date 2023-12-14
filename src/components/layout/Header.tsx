@@ -4,7 +4,7 @@ import Session from "./Session";
 
 export default function Header() {
   return (
-    <header className=" sticky top-0 z-50 grid flex-none place-content-stretch border-b bg-background">
+    <header className=" sticky top-0 z-50 grid h-[3.75rem] flex-none place-content-stretch border-b bg-background">
       <div className=" flex place-items-center gap-4 p-3 px-4 md:container">
         <Link
           href="/dashboard"
