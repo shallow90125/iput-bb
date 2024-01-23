@@ -12,7 +12,6 @@ export function keys<T extends z.AnyZodObject>(schema: T): Keys<T> {
   return Object.assign(
     {},
     ...Object.keys(schema.shape).map((key) => {
-      console.log(`${key}: ${typeof schema.shape[key]}`);
       if (schema.shape[key]["shape"]) {
         return { [key]: keys(schema.shape[key]) };
       } else if (schema.shape[key]["element"]) {

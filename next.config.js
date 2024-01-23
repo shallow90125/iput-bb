@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    swcPlugins: [["@swc-jotai/react-refresh", {}]],
+  },
+};
 
-module.exports = nextConfig;
+const withPWA = require("next-pwa")({
+  dest: "public",
+  register: true,
+  skipWaiting: true,
+});
+
+module.exports = withPWA(nextConfig);
