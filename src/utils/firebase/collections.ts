@@ -1,5 +1,7 @@
+import { historySchema } from "@/types/History";
 import { sensorSchema } from "@/types/Sensor";
 
 export const collections = {
-  sensor: sensorSchema,
+  sb: sensorSchema,
+  hb: historySchema,
 };

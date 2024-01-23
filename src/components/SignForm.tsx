@@ -46,7 +46,7 @@ export default function SignForm(props: Props): React.ReactNode {
   return (
     <Form {...form}>
       <form
-        className="grid w-64 gap-4"
+        className="grid w-72 gap-4"
         onSubmit={form.handleSubmit(async (data) => {
           const res = await signIn(props.isSignUp ? "signup" : "signin", {
             email: data.email,
