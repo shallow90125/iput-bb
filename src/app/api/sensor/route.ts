@@ -1,42 +1,77 @@
-import { initApp } from "@/utils/initApp";
+import { getCollection } from "@/utils/firebase";
+import { initFirebaseAdmin } from "@/utils/init-firebase-admin";
+import { getMessaging } from "firebase-admin/messaging";
 import {
+  Timestamp,
   addDoc,
-  collection,
   getDocs,
-  getFirestore,
   query,
-  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
 import { NextRequest } from "next/server";
+import { z } from "zod";
 
 export async function POST(request: NextRequest) {
-  initApp();
-  const db = getFirestore();
+  const result = z
+    .object({
+      macAddress: z.string(),
+      isOpen: z.boolean(),
+    })
+    .safeParse(await request.json());
 
-  const newData: { macAddress: string; isOpen: boolean } = await request.json();
+  if (!result.success) {
+    return new Response(null, { status: 200 });
+  }
 
-  const colRef = collection(db, "sensor");
-  const q = query(colRef, where("macAddress", "==", newData.macAddress));
+  const data = result.data;
+
+  data.macAddress = data.macAddress.replace(/\./g, "");
+
+  const { ref, path } = getCollection("sb");
+
+  const q = query(ref, where(path.sid, "==", data.macAddress));
   const snapshot = await getDocs(q);
 
   if (snapshot.empty) {
-    await addDoc(colRef, {
-      macAddress: newData.macAddress,
-      isOpen: newData.isOpen,
-      updatedAt: serverTimestamp(),
+    await addDoc(ref, {
+      sid: data.macAddress,
+      uid: "",
+      name: "",
+      isOpen: data.isOpen,
+      timestamp: Timestamp.now(),
+      tokens: [],
+      history: [{ isOpen: data.isOpen, timestamp: Timestamp.now() }],
     });
 
     return new Response(null, { status: 200 });
   }
 
   const docRef = snapshot.docs[0].ref;
+  const docData = snapshot.docs[0].data();
+
+  const history = [...docData.history];
+
+  history.push({ isOpen: data.isOpen, timestamp: Timestamp.now() });
+
   await updateDoc(docRef, {
-    macAddress: newData.macAddress,
-    isOpen: newData.isOpen,
-    updatedAt: serverTimestamp(),
+    isOpen: data.isOpen,
+    timestamp: Timestamp.now(),
+    history: history,
   });
+
+  if (data.isOpen && !!docData.tokens.length) {
+    initFirebaseAdmin();
+    const messaging = getMessaging();
+
+    await messaging.sendEachForMulticast({
+      notification: {
+        title: "WinsoR",
+        body: `The monitoring window "${docData.name}" has opened!`,
+      },
+      tokens: docData.tokens,
+    });
+  }
 
   return new Response(null, { status: 200 });
 }
