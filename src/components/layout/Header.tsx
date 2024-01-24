@@ -1,8 +1,12 @@
+"use client";
+
 import { LayoutGridIcon } from "lucide-react";
 import Link from "next/link";
-import Session from "./Session";
+
+import dynamic from "next/dynamic";
 
 export default function Header() {
+  const Session = dynamic(() => import("./Session"), { ssr: false });
   return (
     <header className=" sticky top-0 z-50 grid h-[3.75rem] flex-none place-content-stretch border-b bg-background">
       <div className=" flex place-items-center gap-4 p-3 px-4 md:container">
