@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
   const data = result.data;
 
-  data.macAddress = data.macAddress.replace(/\./g, "");
+  data.macAddress = data.macAddress.replace(/:/g, "");
 
   const { ref, path } = getCollection("sb");
 

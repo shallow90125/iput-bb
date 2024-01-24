@@ -23,9 +23,11 @@ import { getToken } from "firebase/messaging";
 import { User2Icon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useTransition } from "react";
 
 export default function Session() {
   const { data, status } = useSession();
+  const [isPending, startTransition] = useTransition();
 
   return status == "loading" ? (
     <></>
@@ -53,24 +55,29 @@ export default function Session() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={async () => {
-              const token = await getToken(messaging, {
-                vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
-              });
-              const { ref, path } = getCollection("sb");
-
-              const snapshot = await getDocs(
-                query(ref, where(path.uid, "==", data.user.uid)),
-              );
-
-              if (snapshot.empty) return;
-
-              for (const doc of snapshot.docs) {
-                await updateDoc(doc.ref, {
-                  tokens: arrayUnion(token),
+            onClick={() =>
+              startTransition(async () => {
+                console.log("eee");
+                const token = await getToken(messaging, {
+                  vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
                 });
-              }
-            }}
+                const { ref, path } = getCollection("sb");
+
+                const snapshot = await getDocs(
+                  query(ref, where(path.uid, "==", data.user.uid)),
+                );
+
+                if (snapshot.empty) return;
+
+                console.log(token);
+
+                for (const doc of snapshot.docs) {
+                  await updateDoc(doc.ref, {
+                    tokens: arrayUnion(token),
+                  });
+                }
+              })
+            }
           >
             Allow Notification
           </DropdownMenuItem>
