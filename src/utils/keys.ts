@@ -14,11 +14,17 @@ export function keys<T extends z.AnyZodObject>(schema: T): Keys<T> {
     ...Object.keys(schema.shape).map((key) => {
       if (schema.shape[key]["shape"]) {
         return { [key]: keys(schema.shape[key]) };
-      } else if (schema.shape[key]["element"]) {
-        return { [key]: keys(schema.shape[key]["element"]) };
-      } else {
-        return { [key]: key };
       }
+
+      if (schema.shape[key]["element"]) {
+        if (schema.shape[key]["element"]["shape"]) {
+          return { [key]: keys(schema.shape[key]["element"]) };
+        }
+
+        return { [key]: schema.shape[key]["element"] };
+      }
+
+      return { [key]: key };
     }),
   );
 }

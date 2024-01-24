@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "./ui/button";
 import {
@@ -56,6 +57,7 @@ export default function SignForm(props: Props): React.ReactNode {
           if (!res?.ok) {
             setError("email or password is invalid");
           } else {
+            toast(`You logged in as ${data.email}`);
             router.push("/dashboard");
           }
         })}

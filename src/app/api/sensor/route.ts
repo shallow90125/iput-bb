@@ -1,9 +1,11 @@
 import { getCollection } from "@/utils/firebase";
+import { initFirebaseAdmin } from "@/utils/init-firebase-admin";
+import { getMessaging } from "firebase-admin/messaging";
 import {
+  Timestamp,
   addDoc,
   getDocs,
   query,
-  serverTimestamp,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -24,37 +26,52 @@ export async function POST(request: NextRequest) {
 
   const data = result.data;
 
-  data.macAddress = data.macAddress.replace(".", "");
+  data.macAddress = data.macAddress.replace(/\./g, "");
 
-  const { ref: sr, path: sp } = getCollection("sb");
-  const { ref: hr } = getCollection("hb");
+  const { ref, path } = getCollection("sb");
 
-  const q = query(sr, where(sp.sid, "==", data.macAddress));
+  const q = query(ref, where(path.sid, "==", data.macAddress));
   const snapshot = await getDocs(q);
 
-  await addDoc(hr, {
-    sid: data.macAddress,
-    isOpen: data.isOpen,
-    timestamp: serverTimestamp(),
-  });
-
   if (snapshot.empty) {
-    await addDoc(sr, {
+    await addDoc(ref, {
       sid: data.macAddress,
       uid: "",
       name: "",
       isOpen: data.isOpen,
-      timestamp: serverTimestamp(),
+      timestamp: Timestamp.now(),
+      tokens: [],
+      history: [{ isOpen: data.isOpen, timestamp: Timestamp.now() }],
     });
 
     return new Response(null, { status: 200 });
   }
 
   const docRef = snapshot.docs[0].ref;
+  const docData = snapshot.docs[0].data();
+
+  const history = [...docData.history];
+
+  history.push({ isOpen: data.isOpen, timestamp: Timestamp.now() });
+
   await updateDoc(docRef, {
     isOpen: data.isOpen,
-    timestamp: serverTimestamp(),
+    timestamp: Timestamp.now(),
+    history: history,
   });
+
+  if (data.isOpen && !!docData.tokens.length) {
+    initFirebaseAdmin();
+    const messaging = getMessaging();
+
+    await messaging.sendEachForMulticast({
+      notification: {
+        title: "WinsoR",
+        body: `The monitoring window "${docData.name}" has opened!`,
+      },
+      tokens: docData.tokens,
+    });
+  }
 
   return new Response(null, { status: 200 });
 }

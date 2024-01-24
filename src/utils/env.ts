@@ -11,6 +11,10 @@ const envSchema = z.object({
   NEXT_PUBLIC_MESSAGING_SENDER_ID: varSchema,
   NEXT_PUBLIC_APP_ID: varSchema,
   NEXT_PUBLIC_MEASUREMENT_ID: varSchema,
+  NEXT_PUBLIC_VAPID_KEY: varSchema,
+  FIREBASE_PROJECT_ID: varSchema,
+  FIREBASE_PRIVATE_KEY: varSchema,
+  FIREBASE_CLIENT_EMAIL: varSchema,
 });
 
 envSchema.parse(process.env);

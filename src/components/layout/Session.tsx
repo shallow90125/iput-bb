@@ -10,6 +10,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getCollection } from "@/utils/firebase";
+import { messaging } from "@/utils/sw";
+import {
+  arrayUnion,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { getToken } from "firebase/messaging";
 import { User2Icon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -42,6 +52,28 @@ export default function Session() {
             {data.user.email}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={async () => {
+              const token = await getToken(messaging, {
+                vapidKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+              });
+              const { ref, path } = getCollection("sb");
+
+              const snapshot = await getDocs(
+                query(ref, where(path.uid, "==", data.user.uid)),
+              );
+
+              if (snapshot.empty) return;
+
+              for (const doc of snapshot.docs) {
+                await updateDoc(doc.ref, {
+                  tokens: arrayUnion(token),
+                });
+              }
+            }}
+          >
+            Allow Notification
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => signOut()} className=" text-primary">
             Sign out
           </DropdownMenuItem>

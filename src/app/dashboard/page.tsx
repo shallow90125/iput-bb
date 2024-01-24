@@ -1,7 +1,11 @@
-export default function Dashboard() {
-  return (
-    <main className=" grid min-h-[calc(100dvh_-_3.75rem)] place-content-center place-items-center gap-8 p-4">
-      Dashboard
-    </main>
-  );
+import DashboardClient from "@/components/DashboardClient";
+import { nextAuthOptions } from "@/utils/next-auth-options";
+import { getServerSession } from "next-auth";
+
+export const dynamic = "force-dynamic";
+
+export default async function Dashboard() {
+  const session = await getServerSession(nextAuthOptions);
+
+  return <DashboardClient uid={session?.user.uid ?? ""} />;
 }
