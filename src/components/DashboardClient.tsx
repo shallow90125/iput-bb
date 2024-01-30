@@ -68,7 +68,15 @@ export default function DashboardClient({ uid }: { uid: string }) {
             </div>
             <DialogFooter className=" flex flex-row gap-4 p-4">
               <div className=" flex-grow"></div>
-              <Button onClick={() => setIsOpen(false)}>Cancel</Button>
+              <Button
+                onClick={() => {
+                  setIsOpen(false);
+                  setNameState("");
+                  setSidState("");
+                }}
+              >
+                Cancel
+              </Button>
               <Button
                 onClick={async () => {
                   await addDoc(ref, {
@@ -86,6 +94,8 @@ export default function DashboardClient({ uid }: { uid: string }) {
                     ],
                   });
                   setIsOpen(false);
+                  setNameState("");
+                  setSidState("");
                 }}
               >
                 Submit

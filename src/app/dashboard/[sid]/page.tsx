@@ -1,4 +1,5 @@
 import Loading from "@/app/loading";
+import DeleteButton from "@/components/DeleteButton";
 import Redirect from "@/components/layout/Redirect";
 import { Button } from "@/components/ui/button";
 import {
@@ -52,6 +53,7 @@ export default async function DashboardId({
           </Button>
         </Link>
         <div className=" flex-grow text-2xl">{data.name}</div>
+        <DeleteButton id={snapshot.docs[0].id} />
       </div>
       <Table>
         <TableHeader>

@@ -1,9 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    swcPlugins: [["@swc-jotai/react-refresh", {}]],
-  },
-};
+const nextConfig = {};
 
 const isDev = process.env.NODE_ENV !== "production";
 
